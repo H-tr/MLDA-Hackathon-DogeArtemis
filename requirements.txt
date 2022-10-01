@@ -1,6 +1,6 @@
 torch
 torchvision
-tensorflow
+tensorflow==2.9.2
 tensorflow-probability
 scikit-learn
 numpy
@@ -9,3 +9,4 @@ transformers
 datasets
 pinecone-client 
 sentence-transformers
+jupyter
