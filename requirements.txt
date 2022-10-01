@@ -1,0 +1,8 @@
+torch
+torchvision
+tensorflow
+tensorflow-probability
+scikit-learn
+numpy
+d2l==1.0.0a1.post0
+transformers
