@@ -4,6 +4,7 @@ import pandas as pd
 import pinecone
 from sentence_transformers import SentenceTransformer # sentence embedding
 from transformers import BartTokenizer, BartForConditionalGeneration
+from pprint import pprint
 
 class QAsystem():
     def __init__(self) -> None:
@@ -110,7 +111,7 @@ class QAsystem():
         result = self._query_pinecone(query, top_k=1)
         query = self._format_query(query, result["matches"])
         # tokenize the query to get input_ids
-        inputs = self.tokenizer([query], max_length=1024, return_tensors="pt")
+        inputs = self.tokenizer([query], max_length=1024, return_tensors="pt", truncation=True)
         # use generator to predict output ids
         ids = self.generator.generate(inputs["input_ids"], num_beams=2, min_length=20, max_length=40)
         # use tokenizer to decode the output ids
@@ -118,10 +119,10 @@ class QAsystem():
         return answer
 
 def main():
-    query = "when was the first electric power system built?"
+    query = "How was the first wireless message sent?"
     system = QAsystem()
     answer = system.generate_answer(query)
-    print(answer)
+    pprint(answer)
 
 if __name__ == "__main__":
     main()
