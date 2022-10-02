@@ -17,7 +17,7 @@ def predict(model, input):
 
 # main prediction function
 def return_predictions(model_path, audio_path, sample_rate=22050, num_samples=22050):
-
+	
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 	if device == "cuda":
