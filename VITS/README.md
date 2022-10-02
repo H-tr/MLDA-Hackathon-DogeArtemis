@@ -1,4 +1,15 @@
 ### VITS module instruction
+# Prerequisites
+1. download pretrained weights [here](https://drive.google.com/drive/folders/1ksarh-cJf3F5eKJjLVWY0X1j1qsQqiS2)
+models weights should be put under directory ```/VITS```
+2. Install espeak, for Linux OS, run ```apt-get install espeak```
+for Windows or Mac OS, please refer to respective installation instruction
+3. Build Monotonic Alignment Search:
+```
+cd monotonic_align
+python setup.py build_ext --inplace
+```
+
 To use the VITS text-to-speech(TTS) conversion, import the VITS class:
 ```
 from VITS.inference import VITS_TTS_converter
