@@ -74,5 +74,5 @@ model_path = "FILE PATH TO THE .pth MODEL"
 audio_path = "FILE PATH TO THE .wav AUDIO FILE"
 sample_rate = "int VALUE; HOW MANY TIMES PER SECOND A SOUND IS SAMPLED; DEFAULT 22050"
 num_samples = "int VALUE; MAXIMUM AUDIO LENGTH, NUMBER OF SAMPLES ALLOWED; DEFAULT 22050"
-'''
-Input the parameters; then execute the ```python return_predictions()``` function.
+```
+Input the parameters; then execute the ```return_predictions()``` function.
