@@ -1,4 +1,16 @@
+- [MLDA-Hackathon-DogeArtemis](#mlda-hackathon-dogeartemis)
+  - [Introduction](#introduction)
+  - [Dependency](#dependency)
+  - [File structure](#file-structure)
+  - [Usage](#usage)
+    - [model](#model)
+    - [QAsystem](#qasystem)
+    - [VITS](#vits)
+    - [whisper_step](#whisper_step)
+
 # MLDA-Hackathon-DogeArtemis
+
+## Introduction
 Service provision by companies and the government in SG is shifting towards higher efficiency powered by automation.
 However, assistance for managing problems from these services - customer/user support, is not.
 Customer support in SG is time and effort consuming; thus, transformation is necessary.
@@ -31,8 +43,23 @@ However, if the user is in a negative sentiment, direct connection to a human su
 +-- QAsystem
 +-- VITS
 +-- whisper_step
-+-- LICENSE
-+-- README.md
 ```
 
 ## Usage
+
+### model
+### QAsystem
+To use the Q&A system, first import the class
+```python
+import QAsystem from QAsystem
+```
+Then create an instance for the class
+```python
+query = "What is Covid-19"
+system = QAsystem()
+answer = system.generate_answer(query)
+```
+Put the query which is in string type into the `generate_answer` function, we can get the result of this system.
+### VITS
+### whisper_step
+
