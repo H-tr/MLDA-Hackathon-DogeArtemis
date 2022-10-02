@@ -69,10 +69,10 @@ Import the relevant module:
 from model_predictions import return_predictions
 ```
 Then configure the respective parameters:
-```model_path``` = FILE PATH TO THE .pth MODEL
-```audio_path``` = FILE PATH TO THE .wav AUDIO FILE
-```sample_rate``` = ```int``` VALUE; HOW MANY TIMES PER SECOND A SOUND IS SAMPLED; DEFAULT ```22050```
-```num_samples``` = ```int``` VALUE; MAXIMUM AUDIO LENGTH, NUMBER OF SAMPLES ALLOWED; DEFAULT ```22050```
+```model_path```: FILE PATH TO THE .pth MODEL
+<br>```audio_path```: FILE PATH TO THE .wav AUDIO FILE
+<br>```sample_rate```: ```int``` VALUE; HOW MANY TIMES PER SECOND A SOUND IS SAMPLED; DEFAULT ```22050```
+<br>```num_samples```: ```int``` VALUE; MAXIMUM AUDIO LENGTH, NUMBER OF SAMPLES ALLOWED; DEFAULT ```22050```
 Input the parameters; then execute the ```return_predictions()``` function.
 ```python
 prediction = return_predictions(model_path, audio_path, sample_rate, num_samples)
