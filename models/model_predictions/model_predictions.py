@@ -21,11 +21,9 @@ def return_predictions(model_path, audio_path, sample_rate=22050, num_samples=22
 	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 	if device == "cuda":
-	    num_workers = 1
-	    pin_memory = True
+		model = torch.load(MODEL_PATH)
 	else:
-	    num_workers = 0
-	    pin_memory = False
+		model = torch.load(MODEL_PATH, map_location=torch.device("cpu"))
 
 	mel_spectrogram = torchaudio.transforms.MelSpectrogram(
 	    sample_rate=sample_rate,
