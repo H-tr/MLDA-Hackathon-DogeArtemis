@@ -1,28 +1,38 @@
 # MLDA-Hackathon-DogeArtemis
-We used Python 3.9.9 and PyTorch 1.10.1 to train and test our models, but the codebase is expected to be compatible with Python 3.7 or later and recent PyTorch versions. The codebase also depends on a few Python packages, most notably HuggingFace Transformers for their fast tokenizer implementation and ffmpeg-python for reading audio files. The following command will pull and install the latest commit from this repository, along with its Python dependencies
+Service provision by companies and the government in SG is shifting towards higher efficiency powered by automation.
+However, assistance for managing problems from these services - customer/user support, is not.
+Customer support in SG is time and effort consuming; thus, transformation is necessary.
 
-```pip install git+https://github.com/openai/whisper.git ```
-It also requires the command-line tool ffmpeg to be installed on your system, which is available from most package managers:
+Text-based automated support agent: user inputs general commands; the chatbot sends relevant responses.
+Voice-based automated support agent:
+- The agent requests the user to input option numbers using the keypad; sends relevant responses.
+- The agent requests the user to input the command via voice; sends relevant responses.
 
-# on Ubuntu or Debian
-```sudo apt update && sudo apt install ffmpeg```
+Live agent support: a human agent connects with the user; provides the necessary support.
+*Common limitation: regardless of the support each user demands, everyone should go through the identical process until the automated agent correctly labels the type of user support necessary. This is time and effort consuming to both the user and the service provider.
 
-# on Arch Linux
-```sudo pacman -S ffmpeg```
+Eliminating the “waiting time” users have to spend to reach support; while providing the support relevant to their sentiment.
 
-# [on MacOS using Homebrew](https://brew.sh/)
+Our solution mainly targets the field of voice-based automated support.
+The automated agent immediately asks for the user’s inquiry; while the user speaks out to the agent, the algorithm analyses the sentiment behind the user’s voice and judges urgency.
+Depending on user sentiment, a relevant support will be provided.
+If the algorithm judges the user would be willing to handle with an automated support agent, relevant support will be provided by an agent powered by a natural language generator model.
+However, if the user is in a negative sentiment, direct connection to a human support agent will be given.
+
+## Dependency
+- Python=3.9.13
+- ffmpeg
+- rust
+
+## File structure
+
 ```
-brew install ffmpeg
++-- models
++-- QAsystem
++-- VITS
++-- whisper_step
++-- LICENSE
++-- README.md
 ```
 
-# [on Windows using Chocolatey](https://chocolatey.org/)
-
-```choco install ffmpeg```
-
-# [on Windows using Scoop](https://scoop.sh/)
-
-scoop install ffmpeg
-You may need rust installed as well, in case tokenizers does not provide a pre-built wheel for your platform. If you see installation errors during the pip install command above, please follow the Getting started page to install Rust development environment. Additionally, you may need to configure the PATH environment variable, e.g. export PATH="$HOME/.cargo/bin:$PATH". If the installation fails with No module named 'setuptools_rust', you need to install setuptools_rust, e.g. by running:
-```
-pip install setuptools-rust
-```
+## Usage

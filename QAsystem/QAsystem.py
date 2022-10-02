@@ -2,18 +2,20 @@ from datasets import load_dataset
 from tqdm.auto import tqdm  # progress bar
 import pandas as pd
 import pinecone
-from sentence_transformers import SentenceTransformer # sentence embedding
+from sentence_transformers import SentenceTransformer  # sentence embedding
 from transformers import BartTokenizer, BartForConditionalGeneration
 from pprint import pprint
 
+
 class QAsystem():
-    def __init__(self) -> None:
+    def __init__(self, number_doc) -> None:
         # load bart tokenizer and model from huggingface
+        self.number_doc = number_doc
         self.tokenizer = BartTokenizer.from_pretrained('vblagoje/bart_lfqa')
         self.generator = BartForConditionalGeneration.from_pretrained('vblagoje/bart_lfqa')
         # connect to pinecone environment
         pinecone.init(
-            api_key="442d1d81-beba-41f7-8510-f732c8fff44c", # replace to your api key
+            api_key="442d1d81-beba-41f7-8510-f732c8fff44c",  # replace to your api key
             environment="us-west1-gcp"
         )
 
@@ -33,6 +35,35 @@ class QAsystem():
         self.retriever = SentenceTransformer("flax-sentence-embeddings/all_datasets_v3_mpnet-base")
         self.load_wiki_dataset()
         self.embedding()
+
+    def load_data(self):
+
+        file1 = open("1.txt", "r")
+        passage = []
+        lines = file1.readlines()
+        for line in lines:
+            passage.append(line.rstrip('\n'))
+
+        _total_doc_count = self.number_doc
+        _counter = 0
+        _docs = []
+        # iterate through the dataset and apply our filter
+        for d in range(1, _total_doc_count):
+            # extract the fields we need
+            doc = {
+                "passage_text": passage
+            }
+            # add the dict containing fields we need to docs list
+            _docs.append(doc)
+
+            # stop iteration once we reach 50k
+            if _counter == _total_doc_count:
+                break
+
+            # increase the counter on every iteration
+            _counter += 1
+        # create a pandas dataframe with the documents we extracted
+        self.df = pd.DataFrame(_docs)
 
     def load_wiki_dataset(self) -> None:
         # load the dataset from huggingface in streaming mode and shuffle it
@@ -76,7 +107,7 @@ class QAsystem():
 
         for i in tqdm(range(0, len(self.df), batch_size)):
             # find end of batch
-            i_end = min(i+batch_size, len(self.df))
+            i_end = min(i + batch_size, len(self.df))
             # extract batch
             batch = self.df.iloc[i:i_end]
             # generate embeddings for batch
@@ -112,6 +143,10 @@ class QAsystem():
     def generate_answer(self, query: str) -> str:
         result = self._query_pinecone(query, top_k=1)
         query = self._format_query(query, result["matches"])
+
+        for doc in result["matches"]:
+            print(doc["metadata"]["passage_text"], end='\n---\n')
+
         # tokenize the query to get input_ids
         inputs = self.tokenizer([query], max_length=1024, return_tensors="pt", truncation=True)
         # use generator to predict output ids
@@ -120,11 +155,13 @@ class QAsystem():
         answer = self.tokenizer.batch_decode(ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
         return answer
 
+
 def main():
-    query = "How was the first wireless message sent?"
+    query = "What is Covid-19"
     system = QAsystem()
     answer = system.generate_answer(query)
     pprint(answer)
+
 
 if __name__ == "__main__":
     main()
