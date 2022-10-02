@@ -27,8 +27,8 @@ def return_predictions(model_path, audio_path, sample_rate=22050, num_samples=22
 	    num_workers = 0
 	    pin_memory = False
 
-    mel_spectrogram = torchaudio.transforms.MelSpectrogram(
-	    sample_rate=SAMPLE_RATE,
+	mel_spectrogram = torchaudio.transforms.MelSpectrogram(
+	    sample_rate=sample_rate,
 	    n_fft=1024,
 	    hop_length=512,
 	    n_mels=64
