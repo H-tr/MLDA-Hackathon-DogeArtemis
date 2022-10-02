@@ -1,5 +1,7 @@
 torch
 torchvision
+torchsummary
+tqdm
 tensorflow==2.9.2
 tensorflow-probability
 scikit-learn
