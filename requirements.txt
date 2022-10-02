@@ -1,11 +1,13 @@
 torch
 torchvision
+torchaudio
 torchsummary
 tqdm
 tensorflow==2.9.2
 tensorflow-probability
 scikit-learn
 numpy
+pandas
 d2l==1.0.0a1.post0
 transformers
 datasets
