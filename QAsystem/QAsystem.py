@@ -31,6 +31,8 @@ class QAsystem():
         self.index = pinecone.Index(index_name)
         # load the retriever model from huggingface model hub
         self.retriever = SentenceTransformer("flax-sentence-embeddings/all_datasets_v3_mpnet-base")
+        self.load_wiki_dataset()
+        self.embedding()
 
     def load_wiki_dataset(self) -> None:
         # load the dataset from huggingface in streaming mode and shuffle it
